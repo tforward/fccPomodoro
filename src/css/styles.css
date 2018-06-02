@@ -55,14 +55,13 @@ html {
     fill: yellowgreen;
     stroke: #655;
     stroke-width: 1.318vmin;
+    /* Pi - 2nd parm: Is like seconds of a clock where 60 is max  */
     stroke-dasharray: calc(3.1415926536 * 60vmin) calc(6.2831853072 * 30vmin);
-
-
   }
 
   svg {
     width: 100vmin;
     height: 100vmin;
     transform: rotate(-90deg);
-    }
+  }
   
