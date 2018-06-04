@@ -6,11 +6,75 @@ import css_ from "../css/styles.css";
 
 // import { SubscribersDelegator } from "./olooObserver";
 
+import { ElementDelegator, FragmentDelegator } from "./olooElem";
+
 const myBase = Object.create(null);
 
 myBase.initApplication = function init() {
-  console.log("hi");
+  // setClockDisplay(60);
+  // setTimeDuration(25);
+  addElements();
 };
+
+function addElements() {
+  const jsEntry = ElementDelegator();
+  const nodeFrag = FragmentDelegator();
+
+  jsEntry.init("jsEntry");
+  nodeFrag.initFragment();
+
+  const [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft] = createLabels();
+
+  // Append items to fragment before appending to DOM to reduce redraws
+  nodeFrag.addItems([lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft]);
+  jsEntry.elem.appendChild(nodeFrag.fragment);
+  console.log(jsEntry);
+}
+
+function createLabels() {
+  const lblBreak = ElementDelegator();
+  const lblSession = ElementDelegator();
+  const lblTimer = ElementDelegator();
+  const lblBreakLen = ElementDelegator();
+  const lblSessionLen = ElementDelegator();
+  const lblTimeLeft = ElementDelegator();
+
+  lblBreak.create("break-label", "label");
+  lblBreak.elem.textContent = "Break";
+  lblBreak.elem.className = "lbl center";
+
+  lblSession.create("session-label", "label");
+  lblSession.elem.textContent = "Session";
+  lblSession.elem.className = "lbl center";
+
+  lblTimer.create("timer-label", "label");
+  lblTimer.elem.textContent = "Session";
+  lblTimer.elem.className = "lbl center";
+
+  lblBreakLen.create("break-length", "label");
+  lblBreakLen.elem.textContent = 5;
+  lblBreakLen.elem.className = "lbl center";
+
+  lblSessionLen.create("session-length", "label");
+  lblSessionLen.elem.textContent = 25;
+  lblSessionLen.elem.className = "lbl center";
+
+  lblTimeLeft.create("time-left", "label");
+  lblTimeLeft.elem.textContent = "25:00";
+  lblTimeLeft.elem.className = "lbl center";
+
+  return [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft];
+}
+
+function setClockDisplay(pos) {
+  // Range 0 - 60, 15 is a quarter
+  document.documentElement.style.setProperty("--pos", `${pos}vmin`);
+}
+
+function setTimeDuration(time) {
+  // in seconds
+  document.documentElement.style.setProperty("--time", `${time}s`);
+}
 
 // ======================================================================
 // Handler when the DOM is fully loaded

@@ -1,5 +1,10 @@
 /* CSS */
 
+:root {
+  --time: 0s;
+  --pos: 0vmin;
+}
+
 html {
     box-sizing: border-box;
   }
@@ -56,12 +61,26 @@ html {
     stroke: #655;
     stroke-width: 1.318vmin;
     /* Pi - 2nd parm: Is like seconds of a clock where 60 is max  */
-    stroke-dasharray: calc(3.1415926536 * 60vmin) calc(6.2831853072 * 30vmin);
+    stroke-dasharray: calc(3.1415926536 * var(--pos)) calc(6.2831853072 * 30vmin);
+    transition: var(--time) linear;
+    -webkit-transition: var(--time) linear;
   }
 
   svg {
     width: 100vmin;
     height: 100vmin;
     transform: rotate(-90deg);
+    z-index: -1;
+    position: absolute;
+  }
+
+  .jsContent {
+    width: 58.6vmin;
+    height: 58.6vmin;
+    background-color: #FF3010;
+    border-radius: 50%;
   }
   
+  .lbl {
+    font-size: 3vmin;
+  }
