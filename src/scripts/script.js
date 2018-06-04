@@ -8,12 +8,17 @@ import css_ from "../css/styles.css";
 
 import { ElementDelegator, FragmentDelegator } from "./olooElem";
 
+const Tock = require("tocktimer");
+
 const myBase = Object.create(null);
 
 myBase.initApplication = function init() {
   // setClockDisplay(60);
   // setTimeDuration(25);
   addElements();
+
+  const timer = getTimer();
+  timer.start("25:00");
 };
 
 function addElements() {
@@ -64,6 +69,23 @@ function createLabels() {
   lblTimeLeft.elem.className = "lbl center";
 
   return [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft];
+}
+
+function displayTime(timer) {
+  const currentTime = timer.msToTimecode(timer.lap());
+  // console.log(timer.msToTimecode(timer.lap()));
+  const timeMMSS = currentTime.substring(3, 8);
+  console.log(currentTime);
+}
+
+function getTimer() {
+  const timer = new Tock({
+    countdown: true,
+    interval: 1000,
+    callback: displayTime
+    // complete: someCompleteFunction
+  });
+  return timer;
 }
 
 function setClockDisplay(pos) {
