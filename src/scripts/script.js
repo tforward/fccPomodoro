@@ -6,7 +6,7 @@ import css_ from "../css/styles.css";
 
 import { SubscribersDelegator } from "./olooObserver";
 
-import { ElementDelegator, FragmentDelegator } from "./olooElem";
+import { ElementDelegator } from "./olooElem";
 
 const Tock = require("tocktimer");
 
@@ -35,29 +35,17 @@ myBase.main = function main() {
 };
 
 function addElements() {
-  const jsEntry = ElementDelegator();
-  const nodeFrag = FragmentDelegator();
-  const nodeFragBtns = FragmentDelegator();
-
-  jsEntry.init("jsEntry");
-  nodeFrag.initFragment();
-  nodeFragBtns.initFragment();
-
   const labels = createLabels();
-  const buttonHolder = createBtnHolder();
+
+  const btnHolder = ElementDelegator();
+  btnHolder.init("button-holder");
   const buttons = createBtns();
 
   myApp.addItems(labels);
-  myApp.addItems(buttonHolder);
+  myApp.subscribe(btnHolder);
   myApp.addItems(buttons);
 
-  // Append items to fragment before appending to DOM to reduce redraws
-  nodeFrag.addNodes(labels);
-  nodeFrag.addNodes(buttonHolder);
-  nodeFragBtns.addNodes(buttons);
-
-  myApp.elems["btn-holder"].appendChild(nodeFragBtns.fragment);
-  jsEntry.elem.appendChild(nodeFrag.fragment);
+  console.log(myApp.elems);
 }
 
 function ButtonDelegator(proto = null) {
@@ -70,20 +58,9 @@ function ButtonDelegator(proto = null) {
   return Button;
 }
 
-function createBtnHolder() {
-  const btnHolder = ElementDelegator();
-  btnHolder.create("btn-holder", "div");
-  btnHolder.elem.className = "center";
-  return [btnHolder];
-}
-
 function createBtns() {
   const btnBreakDesc = ButtonDelegator(ElementDelegator());
-
-  btnBreakDesc.create("break-decrement", "button");
-  btnBreakDesc.elem.textContent = "BTN";
-  btnBreakDesc.elem.className = "center";
-
+  btnBreakDesc.init("break-decrement");
   return [btnBreakDesc];
 }
 
@@ -95,29 +72,12 @@ function createLabels() {
   const lblSessionLen = ElementDelegator();
   const lblTimeLeft = ElementDelegator();
 
-  lblBreak.create("break-label", "label");
-  lblBreak.elem.textContent = "Break";
-  lblBreak.elem.className = "lbl center";
-
-  lblSession.create("session-label", "label");
-  lblSession.elem.textContent = "Session";
-  lblSession.elem.className = "lbl center";
-
-  lblTimer.create("timer-label", "label");
-  lblTimer.elem.textContent = "Session";
-  lblTimer.elem.className = "lbl center";
-
-  lblBreakLen.create("break-length", "label");
-  lblBreakLen.elem.textContent = 5;
-  lblBreakLen.elem.className = "lbl center";
-
-  lblSessionLen.create("session-length", "label");
-  lblSessionLen.elem.textContent = 25;
-  lblSessionLen.elem.className = "lbl center";
-
-  lblTimeLeft.create("time-left", "label");
-  lblTimeLeft.elem.textContent = "25:00";
-  lblTimeLeft.elem.className = "lbl center";
+  lblBreak.init("break-label");
+  lblSession.init("session-label");
+  lblTimer.init("timer-label");
+  lblBreakLen.init("break-length");
+  lblSessionLen.init("session-length");
+  lblTimeLeft.init("time-left");
 
   return [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft];
 }

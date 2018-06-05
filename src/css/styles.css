@@ -74,13 +74,13 @@ html {
     position: absolute;
   }
 
-  .jsContent {
+  .content {
     width: 58.6vmin;
     height: 58.6vmin;
     background-color: #FF3010;
     border-radius: 50%;
   }
   
-  .lbl {
+  .label {
     font-size: 3vmin;
   }

@@ -18,7 +18,7 @@ export function ElementDelegator(proto = null) {
     this.id = elemId;
     this.elem = document.getElementById(this.id);
     if (this.elem === null) {
-      alert(`Init Error: No element with id "${this.id}"`);
+      console.log(`Init Error: No element with id "${this.id}"`);
     }
     // After creation garbage collected init/create
     Element.gc(["init", "create"]);
