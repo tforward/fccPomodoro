@@ -7,9 +7,13 @@ export function SubscribersDelegator() {
 
   Subscribe.init = function init() {
     this.elems = Object.create(null);
+    delete Subscribe.init;
   };
   Subscribe.subscribe = function subscribe(id, elem) {
     this.elems[id] = elem;
+  };
+  Subscribe.addItems = function addItems(items) {
+    items.forEach(item => Subscribe.subscribe(item.id, item.elem));
   };
   Subscribe.unsubscribe = function unsubscribe(elem) {
     // Can unsubscribe one observer, or an array of observers

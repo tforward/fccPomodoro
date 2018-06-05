@@ -31,7 +31,6 @@ export function ElementDelegator(proto = null) {
     // Delete gc
     delete Element.gc;
   };
-
   return Element;
 }
 
@@ -41,7 +40,7 @@ export function FragmentDelegator(proto = null) {
   Fragment.initFragment = function initFragment() {
     this.fragment = document.createDocumentFragment();
   };
-  Fragment.addItems = function addItems(items) {
+  Fragment.addNodes = function addNodes(items) {
     items.forEach(item => this.fragment.appendChild(item.elem));
   };
   return Fragment;

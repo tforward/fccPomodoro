@@ -4,7 +4,7 @@ import css_ from "../css/styles.css";
 
 // import { EventDelegator, getTargetId } from "./olooEvent";
 
-// import { SubscribersDelegator } from "./olooObserver";
+import { SubscribersDelegator } from "./olooObserver";
 
 import { ElementDelegator, FragmentDelegator } from "./olooElem";
 
@@ -12,28 +12,79 @@ const Tock = require("tocktimer");
 
 const myBase = Object.create(null);
 
+const myApp = SubscribersDelegator();
+myApp.init();
+
 myBase.initApplication = function init() {
-  // setClockDisplay(60);
-  // setTimeDuration(25);
   addElements();
 
+  myBase.main();
+};
+
+myBase.main = function main() {
   const timer = getTimer();
-  timer.start("25:00");
+  const sessionAsStr = parseInt(myApp.elems["session-length"].textContent, 10);
+  const startTime = timer.timeToMS(`${sessionAsStr}:00`);
+
+  timer.start(startTime);
+  setClockDisplay(60);
+
+  // Get the time in mins and convert to seconds
+  const sessionLengthSecs = myApp.elems["session-length"].textContent * 60;
+  setTimeDuration(sessionLengthSecs);
 };
 
 function addElements() {
   const jsEntry = ElementDelegator();
   const nodeFrag = FragmentDelegator();
+  const nodeFragBtns = FragmentDelegator();
 
   jsEntry.init("jsEntry");
   nodeFrag.initFragment();
+  nodeFragBtns.initFragment();
 
-  const [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft] = createLabels();
+  const labels = createLabels();
+  const buttonHolder = createBtnHolder();
+  const buttons = createBtns();
+
+  myApp.addItems(labels);
+  myApp.addItems(buttonHolder);
+  myApp.addItems(buttons);
 
   // Append items to fragment before appending to DOM to reduce redraws
-  nodeFrag.addItems([lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft]);
+  nodeFrag.addNodes(labels);
+  nodeFrag.addNodes(buttonHolder);
+  nodeFragBtns.addNodes(buttons);
+
+  myApp.elems["btn-holder"].appendChild(nodeFragBtns.fragment);
   jsEntry.elem.appendChild(nodeFrag.fragment);
-  console.log(jsEntry);
+}
+
+function ButtonDelegator(proto = null) {
+  const Button = Object.create(proto);
+
+  Button.setup = function setup() {
+    this.toggle = 0;
+  };
+
+  return Button;
+}
+
+function createBtnHolder() {
+  const btnHolder = ElementDelegator();
+  btnHolder.create("btn-holder", "div");
+  btnHolder.elem.className = "center";
+  return [btnHolder];
+}
+
+function createBtns() {
+  const btnBreakDesc = ButtonDelegator(ElementDelegator());
+
+  btnBreakDesc.create("break-decrement", "button");
+  btnBreakDesc.elem.textContent = "BTN";
+  btnBreakDesc.elem.className = "center";
+
+  return [btnBreakDesc];
 }
 
 function createLabels() {
@@ -73,15 +124,14 @@ function createLabels() {
 
 function displayTime(timer) {
   const currentTime = timer.msToTimecode(timer.lap());
-  // console.log(timer.msToTimecode(timer.lap()));
   const timeMMSS = currentTime.substring(3, 8);
-  console.log(currentTime);
+  myApp.elems["time-left"].textContent = timeMMSS;
 }
 
 function getTimer() {
   const timer = new Tock({
     countdown: true,
-    interval: 1000,
+    interval: 250,
     callback: displayTime
     // complete: someCompleteFunction
   });
