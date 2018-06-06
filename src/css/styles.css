@@ -111,7 +111,6 @@ html {
 
   .item-down {
     grid-area: btn-down;
-
     justify-self: center;
     align-self: center;
   }
