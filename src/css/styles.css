@@ -47,14 +47,6 @@ html {
     border-radius: 50vmin;
   }
 
-  .time-circle {
-    display: flex;
-    width: calc(50vmin + 2em);
-    height: calc(50vmin + 2em);
-    left: 10em;
-    border-radius: 50vmin;
-    background-color: red;
-  }
 
   circle {
     fill: yellowgreen;
@@ -80,7 +72,58 @@ html {
     background-color: #FF3010;
     border-radius: 50%;
   }
+
   
+  .grid-container {
+    display: grid;
+    width: 42.6vmin;
+    height: 42.6vmin;
+    grid-template-areas: "head head head"
+                        "btn-left main btn-right"
+                        ". btn-down .";
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .item-title {
+    grid-area: head;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .item-main {
+    grid-area: main;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .item-session {
+    grid-area: btn-left;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .item-break {
+    grid-area: btn-right;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .item-down {
+    grid-area: btn-down;
+
+    justify-self: center;
+    align-self: center;
+  }
+
+  .label-main {
+    font-size: 5vmin;
+  }
+
+  h1 {
+    font-size: 5vmin;
+  }
+
   .label {
     font-size: 3vmin;
   }

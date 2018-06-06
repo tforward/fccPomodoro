@@ -17,16 +17,27 @@
                         <circle id="test1" r="30vmin" cx="50%" cy="50%">
                         </circle>
                     </svg>
-                    <div id="content" class="content">
-                        <label id="break-label" class="label center">Break</label>
-                        <label id="session-label" class="label center">Session</label>
-                        <label id="timer-label" class="label center">Session</label>
-                        <label id="break-length" class="label center">5</label>
-                        <label id="session-length" class="label center">25</label>
-                        <label id="time-left" class="label center">25:00</label>
-                        <div id="button-holder" class="center">
-                            <button id="break-decrement" class="center">
-                                test</button>
+                    <div id="content" class="content center">
+                        <div class="grid-container">
+                            <div class="item-title">
+                                <h1>Pomodoro</h1>
+                            </div>
+                            <div class="item-break">
+                                <label id="break-label" class="label center">Break</label>
+                                <label id="break-length" class="label center">5</label>
+                            </div>
+                            <div class="item-main">
+                                <label id="timer-label" class="label-main center">Session</label>
+                                <label id="time-left" class="label-main center">25:00</label>
+                            </div>
+                            <div class="item-session">
+                                <label id="session-label" class="label center">Session</label>
+                                <label id="session-length" class="label center">25</label>
+                            </div>
+                            <div id="button-holder" class="item-down center">
+                                <button id="break-decrement" class="center">
+                                    test</button>
+                            </div>
                         </div>
                     </div>
                 </div>
