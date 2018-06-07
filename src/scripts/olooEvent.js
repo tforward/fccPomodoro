@@ -3,13 +3,26 @@
 //
 // Creating a new sandbox based on element ID's
 //
+// Import Script
+// import { EventDelegator, getTargetId } from "./olooEvent";
+//
 // # Instantiate Delegator
 //  const eventSandbox = EventDelegator();
 // # Define Element by ID to attached Event sandbox to, types of event, and on what tags
 //  eventSandbox.initEvent("eventSandbox", "click", { tags: ["BUTTON"] });
 //  For more Event types see: https://developer.mozilla.org/en-US/docs/Web/Events
 // # Call a function to handle the events ex. EventController Handles all events within the Event sandbox
+//    Note: EventController is just a function that's called
 //  eventSandbox.addEvent(eventController);
+//
+// Example Event Controller
+// function eventController(args, e) {
+//   // Only Passes events of with tagNames defined in the array
+//   const id = getTargetId(e, args.tags);
+//   if (id !== undefined) {
+//     const obj = myApp.elems[id];
+//   }
+// }
 // ======================================================================
 
 export function EventDelegator() {

@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** "> -->
 </head>
 
@@ -18,25 +20,43 @@
                         </circle>
                     </svg>
                     <div id="content" class="content center">
-                        <div class="grid-container">
+                        <div id="eventSandbox" class="grid-container">
                             <div class="item-title">
                                 <h1>Pomodoro</h1>
                             </div>
                             <div class="item-break">
-                                <label id="break-label" class="label center">Break</label>
-                                <label id="break-length" class="label center">5</label>
+                                <div class="grid-btns-right">
+                                    <label id="break-label" class="label center item-btn-title">Break</label>
+                                    <button id="break-decrement" class="item-btn-top triangle-top no-btn-style"></button>
+                                    <button id="break-increment" class="item-btn-down triangle-down no-btn-style"></button>
+                                    <label id="break-length" class="num item-num-left">5</label>
+                                </div>
                             </div>
                             <div class="item-main">
                                 <label id="timer-label" class="label-main center">Session</label>
                                 <label id="time-left" class="label-main center">25:00</label>
                             </div>
                             <div class="item-session">
-                                <label id="session-label" class="label center">Session</label>
-                                <label id="session-length" class="label center">25</label>
+                                <div class="grid-btns-left">
+                                    <label id="session-label" class="label center item-btn-title">Session</label>
+                                    <button id="session-decrement" class="item-btn-top triangle-top no-btn-style"></button>
+                                    <button id="session-increment" class="item-btn-down triangle-down no-btn-style"></button>
+                                    <label id="session-length" class="num item-num-right">25</label>
+                                </div>
                             </div>
-                            <div id="button-holder" class="item-down center">
-                                <button id="break-decrement" class="center">
-                                    test</button>
+                            <div id="button-holder" class="item-btn-bar center">
+                                <div class="grid-btn-bar">
+                                    <div class="main-btns center">
+                                        <button class="center no-btn-style">
+                                            <i id="reset" class="fas fa-redo-alt"></i>
+                                        </button>
+                                    </div>
+                                    <div class="main-btns white-bg center">
+                                        <button class="center no-btn-style">
+                                            <i id="start_stop" class="fas fa-play-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,6 @@
-/* CSS */
+/* CSS 
+https://www.hongkiat.com/blog/css3-on-off-button/
+*/
 
 :root {
   --time: 0s;
@@ -11,118 +13,226 @@ html {
   *, *:before, *:after {
     box-sizing: inherit;
   }
-  
-  html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
 
-  .center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .flex-coloum {
-    display: flex;
-    flex-direction: column;
-  }
+.flex-coloum {
+  display: flex;
+  flex-direction: column;
+}
 
-  .flex-row {
-    display: flex;
-    flex-direction: row;
-  }
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
 
-  .frame {
-    width: 100%;
-    height: 100%;
-  }
+.frame {
+  width: 100%;
+  height: 100%;
+}
 
-  .flex-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    border-radius: 50vmin;
-  }
+.flex-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 50vmin;
+}
 
 
-  circle {
-    fill: yellowgreen;
-    stroke: #655;
-    stroke-width: 1.318vmin;
-    /* Pi - 2nd parm: Is like seconds of a clock where 60 is max  */
-    stroke-dasharray: calc(3.1415926536 * var(--pos)) calc(6.2831853072 * 30vmin);
-    transition: var(--time) linear;
-    -webkit-transition: var(--time) linear;
-  }
+circle {
+  fill: yellowgreen;
+  stroke: #655;
+  stroke-width: 1.318vmin;
+  /* Pi - 2nd parm: Is like seconds of a clock where 60 is max  */
+  stroke-dasharray: calc(3.1415926536 * var(--pos)) calc(6.2831853072 * 30vmin);
+  transition: var(--time) linear;
+  -webkit-transition: var(--time) linear;
+}
 
-  svg {
-    width: 100vmin;
-    height: 100vmin;
-    transform: rotate(-90deg);
-    z-index: -1;
-    position: absolute;
-  }
+svg {
+  width: 100vmin;
+  height: 100vmin;
+  transform: rotate(-90deg);
+  z-index: -1;
+  position: absolute;
+}
 
-  .content {
-    width: 58.6vmin;
-    height: 58.6vmin;
-    background-color: #FF3010;
-    border-radius: 50%;
-  }
+.content {
+  width: 58.6vmin;
+  height: 58.6vmin;
+  background-color: tomato;
+  border-radius: 50%;
+}
 
-  
-  .grid-container {
-    display: grid;
-    width: 42.6vmin;
-    height: 42.6vmin;
-    grid-template-areas: "head head head"
-                        "btn-left main btn-right"
-                        ". btn-down .";
-    grid-template-rows: 1fr 2fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+.grid-container {
+  display: grid;
+  width: 42.6vmin;
+  height: 42.6vmin;
+  grid-template-areas: "head head head"
+                       ". main ."
+                      "btn-left btn-bar btn-right";
+                   
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 
-  .item-title {
-    grid-area: head;
-    justify-self: center;
-    align-self: center;
-  }
+.grid-btns-right {
+  display: grid;
+  grid-template-areas: "title title"
+                      "btn-top num"
+                      "btn-down num";
+  grid-template-rows: 2fr 1.5fr;
+}
 
-  .item-main {
-    grid-area: main;
-    justify-self: center;
-    align-self: center;
-  }
+.grid-btns-left {
+  display: grid;
+  grid-template-areas: "title title"
+                      "num btn-top"
+                      "num btn-down";
+  grid-template-rows: 2fr 1.5fr;
+}
 
-  .item-session {
-    grid-area: btn-left;
-    justify-self: center;
-    align-self: center;
-  }
+.grid-btn-bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1vmin;
+}
 
-  .item-break {
-    grid-area: btn-right;
-    justify-self: center;
-    align-self: center;
-  }
+.item-btn-title {
+  grid-area: title;
+  justify-self: center;
+  align-self: center;
+}
 
-  .item-down {
-    grid-area: btn-down;
-    justify-self: center;
-    align-self: center;
-  }
+.item-num-right {
+  grid-area: num;
+  justify-self: right;
+  align-self: center;
+}
 
-  .label-main {
-    font-size: 5vmin;
-  }
+.item-num-left {
+  grid-area: num;
+  justify-self: left;
+  align-self: center;
+}
 
-  h1 {
-    font-size: 5vmin;
-  }
+.main-btns {
+  border-radius: 50%;
+  width: 4.6vmin;
+  height: 4.6vmin;
+  font-size: 5vmin;
+}
 
-  .label {
-    font-size: 3vmin;
-  }
+.white-bg {
+  background-color: #FFF;
+}
+
+.item-btn-top {
+  grid-area: btn-top;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-btn-down {
+  grid-area: btn-down;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-btn-bar {
+  grid-area: btn-bar;
+  justify-self: center;
+  align-self: center;
+}
+
+.no-btn-style {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.triangle-top {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 1.5vmin 1.5vmin 1.5vmin;
+    border-color: transparent transparent #000000 transparent;
+}
+
+.triangle-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 1.5vmin 1.5vmin 0 1.5vmin;
+    border-color: #000000 transparent transparent transparent;
+}
+
+.triangle-right {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 1.5vmin 0 1.5vmin 1.5vmin;
+    border-color: transparent transparent transparent #000000;
+}
+
+.item-title {
+  grid-area: head;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-main {
+  grid-area: main;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-session {
+  grid-area: btn-left;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-display {
+  grid-area: btn-right;
+  justify-self: center;
+  align-self: start;
+}
+
+.item-break {
+  grid-area: btn-right;
+  justify-self: center;
+  align-self: center;
+}
+
+.item-down {
+  grid-area: btn-down;
+  justify-self: center;
+  align-self: center;
+}
+
+.label-main {
+  font-size: 5vmin;
+}
+
+h1 {
+  font-size: 5vmin;
+}
+
+.label {
+  font-size: 3vmin;
+}
+
+.num {
+  font-size: 4vmin;
+}

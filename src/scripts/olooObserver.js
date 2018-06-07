@@ -6,31 +6,32 @@ export function SubscribersDelegator() {
   const Subscribe = Object.create(null);
 
   Subscribe.init = function init() {
-    this.elems = Object.create(null);
+    this.obj = Object.create(null);
     delete Subscribe.init;
   };
   Subscribe.subscribe = function subscribe(item) {
-    this.elems[item.id] = item.elem;
+    this.obj[item.id] = item;
   };
   // Use addItems when you want to subscribe many items
   Subscribe.addItems = function addItems(items) {
     items.forEach(item => Subscribe.subscribe(item));
   };
-  Subscribe.unsubscribe = function unsubscribe(elem) {
+  Subscribe.unsubscribe = function unsubscribe(items) {
     // Can unsubscribe one observer, or an array of observers
-    if (typeof elem === "string") {
-      delete this.elems[elem];
+    if (typeof items === "string") {
+      const item = items;
+      delete this.obj[item];
     } else {
-      elem.forEach(key => delete this.elems[key]);
+      items.forEach(key => delete this.obj[key]);
     }
   };
   Subscribe.broadcast = function broadcast(func, ...args) {
     // On each object called func
     // Any additional args will get passed into the func
     // define them just using comma seperator
-    const keys = Object.keys(this.elems);
+    const keys = Object.keys(this.obj);
     for (let i = 0; i < keys.length; i += 1) {
-      this.elems[keys[i]][func](...args);
+      this.obj[keys[i]][func](...args);
     }
   };
   return Subscribe;

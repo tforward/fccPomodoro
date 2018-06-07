@@ -2,7 +2,7 @@
 
 import css_ from "../css/styles.css";
 
-// import { EventDelegator, getTargetId } from "./olooEvent";
+import { EventDelegator, getTargetId } from "./olooEvent";
 
 import { SubscribersDelegator } from "./olooObserver";
 
@@ -13,39 +13,45 @@ const Tock = require("tocktimer");
 const myBase = Object.create(null);
 
 const myApp = SubscribersDelegator();
-myApp.init();
 
 myBase.initApplication = function init() {
+  myApp.init();
   addElements();
+  const eventSandbox = EventDelegator();
+  eventSandbox.initEvent("eventSandbox", "click", { tags: ["BUTTON", "I"] });
+  eventSandbox.addEvent(eventController);
 
+  function eventController(args, e) {
+    // Only Passes events of with tagNames defined in the array
+    const id = getTargetId(e, args.tags);
+    if (id !== undefined) {
+      // const obj = myApp[id];
+      console.log(myApp);
+    }
+  }
   myBase.main();
 };
 
-myBase.main = function main() {
-  const timer = getTimer();
-  const sessionAsStr = parseInt(myApp.elems["session-length"].textContent, 10);
-  const startTime = timer.timeToMS(`${sessionAsStr}:00`);
+myBase.main = function main(id) {
+  if (id === "start-stop") {
+    const timer = getTimer();
+    const sessionAsStr = parseInt(myApp.elems["session-length"].textContent, 10);
+    const startTime = timer.timeToMS(`${sessionAsStr}:00`);
+    timer.start(startTime);
+    setClockDisplay(60);
 
-  timer.start(startTime);
-  setClockDisplay(60);
-
-  // Get the time in mins and convert to seconds
-  const sessionLengthSecs = myApp.elems["session-length"].textContent * 60;
-  setTimeDuration(sessionLengthSecs);
+    // Get the time in mins and convert to seconds
+    const sessionLengthSecs = myApp.elems["session-length"].textContent * 60;
+    setTimeDuration(sessionLengthSecs);
+  }
 };
 
 function addElements() {
-  const labels = createLabels();
-
-  const btnHolder = ElementDelegator();
-  btnHolder.init("button-holder");
-  const buttons = createBtns();
+  const labels = initLabels();
+  const buttons = initBtns();
 
   myApp.addItems(labels);
-  myApp.subscribe(btnHolder);
   myApp.addItems(buttons);
-
-  console.log(myApp.elems);
 }
 
 function ButtonDelegator(proto = null) {
@@ -58,28 +64,38 @@ function ButtonDelegator(proto = null) {
   return Button;
 }
 
-function createBtns() {
+function initBtns() {
+  // TODO REFACTOR
   const btnBreakDesc = ButtonDelegator(ElementDelegator());
+  const btnBreakAsc = ButtonDelegator(ElementDelegator());
+  const btnSessionDesc = ButtonDelegator(ElementDelegator());
+  const btnSessionAsc = ButtonDelegator(ElementDelegator());
+  const btnStart = ButtonDelegator(ElementDelegator());
+  const btnReset = ButtonDelegator(ElementDelegator());
+
   btnBreakDesc.init("break-decrement");
-  return [btnBreakDesc];
+  btnBreakAsc.init("break-increment");
+  btnSessionDesc.init("session-decrement");
+  btnSessionAsc.init("session-increment");
+  btnStart.init("start_stop");
+  btnReset.init("reset");
+
+  return [btnBreakDesc, btnBreakAsc, btnSessionDesc, btnSessionAsc, btnStart, btnReset];
 }
 
-function createLabels() {
-  const lblBreak = ElementDelegator();
-  const lblSession = ElementDelegator();
+function initLabels() {
+  // TODO REFACTOR
   const lblTimer = ElementDelegator();
   const lblBreakLen = ElementDelegator();
   const lblSessionLen = ElementDelegator();
   const lblTimeLeft = ElementDelegator();
 
-  lblBreak.init("break-label");
-  lblSession.init("session-label");
   lblTimer.init("timer-label");
   lblBreakLen.init("break-length");
   lblSessionLen.init("session-length");
   lblTimeLeft.init("time-left");
 
-  return [lblBreak, lblSession, lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft];
+  return [lblTimer, lblBreakLen, lblSessionLen, lblTimeLeft];
 }
 
 function displayTime(timer) {
