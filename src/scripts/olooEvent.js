@@ -65,11 +65,9 @@ export function getTargetId(e, tags) {
   if (e.target !== e.currentTarget) {
     // Returns the target ID of event for allowed tags Ex: DIV, BUTTON etc.
     if (tags.indexOf(e.target.tagName) > -1) {
-      e.stopPropagation();
       return e.target.id;
     }
   }
-  e.stopPropagation();
   // Returns undefined if no target match by ID
   return undefined;
 }

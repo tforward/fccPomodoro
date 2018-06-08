@@ -28,10 +28,31 @@ export function ElementDelegator(proto = null) {
     items.forEach(item => {
       delete Element[item];
     });
-    // Delete gc
+    // Delete gc itself
     delete Element.gc;
   };
   return Element;
+}
+
+// ======================================================================
+// Delegated Element Utilities
+// ======================================================================
+
+export function initElemObjects(ids, delegator, proto = null) {
+  // Used for quickly initiating Element delegated objects
+  // Can accept another proto delegator
+  const objs = [];
+  let obj;
+  ids.forEach(id => {
+    if (proto === null) {
+      obj = delegator();
+    } else {
+      obj = delegator(proto());
+    }
+    obj.init(id);
+    objs.push(obj);
+  });
+  return objs;
 }
 
 export function FragmentDelegator(proto = null) {
