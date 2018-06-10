@@ -1,6 +1,4 @@
-/* CSS 
-https://www.hongkiat.com/blog/css3-on-off-button/
-*/
+/* CSS */
 
 :root {
   --time: 0s;
@@ -42,15 +40,21 @@ html {
   border-radius: 50vmin;
 }
 
-
 circle {
-  fill: yellowgreen;
-  stroke: #655;
+  fill: white;
   stroke-width: 1.318vmin;
   /* Pi - 2nd parm: Is like seconds of a clock where 60 is max  */
   stroke-dasharray: calc(3.1415926536 * var(--pos)) calc(6.2831853072 * 30vmin);
   transition: var(--time) linear;
   -webkit-transition: var(--time) linear;
+}
+
+.working {
+  stroke: yellowgreen;
+}
+
+.break {
+  stroke: lightskyblue;
 }
 
 svg {

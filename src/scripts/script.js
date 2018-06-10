@@ -53,9 +53,9 @@ myBase.main = function main(id) {
     setBreakLength(numBreak);
   } else if (id === "reset") {
     reset();
-    setSessionLength(1);
-    setBreakLength(1);
-    formattedDisplayTime(1);
+    setSessionLength(25);
+    formattedDisplayTime(25);
+    setBreakLength(5);
   }
 };
 
@@ -66,7 +66,7 @@ function formattedDisplayTime(num) {
 
 function upperLimit(num) {
   let limit = num;
-  if (limit > 60) {
+  if (limit >= 60) {
     return limit;
   }
   limit += 1;
@@ -167,7 +167,7 @@ function clockDial(clock, session) {
 }
 
 function addElements() {
-  const labelIds = ["timer-label", "break-length", "session-length", "time-left"];
+  const labelIds = ["timer-label", "break-length", "session-length", "time-left", "circleTime"];
 
   const btnIds = [
     "break-decrement",
@@ -221,8 +221,10 @@ function switchSession() {
     timerLbl.elem.textContent = "Break";
     myApp.state = 0;
     initNewTimer(getBreakLength());
+    myApp.obj["circleTime"].elem.className = "break";
   } else if (myApp.state === 0) {
     timerLbl.elem.textContent = "Session";
+    myApp.obj["circleTime"].elem.className = "working";
     myApp.state = 1;
     initNewTimer(getSessionLength());
   }
