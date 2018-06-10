@@ -237,7 +237,6 @@ function playBeep() {
 
 function resetBeep() {
   const beep = document.getElementById("beep");
-  beep.pause();
   beep.currentTime = 0;
 }
 
