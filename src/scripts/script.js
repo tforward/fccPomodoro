@@ -17,6 +17,8 @@ myBase.initApplication = function init() {
   const eventSandbox = EventDelegator();
   eventSandbox.initEvent("eventSandbox", "click", { tags: ["BUTTON", "I"] });
   eventSandbox.addEvent(eventController);
+  myApp.state = -1;
+  switchSession();
 
   function eventController(args, e) {
     // Only Passes events of with tagNames defined in the array
@@ -204,12 +206,28 @@ function updateTime() {
   displayTime(timeMMSS);
 }
 
+function switchSession() {
+  const timerLbl = myApp.obj["timer-label"];
+  if (myApp.state === 1 || myApp.state === -1) {
+    timerLbl.elem.textContent = "Break";
+    myApp.state = 0;
+    const breakTime = getBreakLength() * 60000;
+    const breakTimeSecs = getBreakLength() * 60;
+    myApp.timer = getTimer();
+    myApp.timer.start(breakTime);
+    clockDial(60, breakTimeSecs);
+  } else if (myApp.state === 0) {
+    timerLbl.elem.textContent = "Session";
+    myApp.state = 1;
+  }
+}
+
 function getTimer() {
   const newTimer = new Tock({
     countdown: true,
     interval: 250,
-    callback: updateTime
-    // complete: someCompleteFunction
+    callback: updateTime,
+    complete: switchSession
   });
   return newTimer;
 }
