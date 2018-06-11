@@ -221,10 +221,10 @@ function switchSession() {
     timerLbl.elem.textContent = "Break";
     myApp.state = 0;
     initNewTimer(getBreakLength());
-    myApp.obj["circleTime"].elem.className = "break";
+    myApp.obj["circleTime"].elem.setAttribute("class", "break");
   } else if (myApp.state === 0) {
     timerLbl.elem.textContent = "Session";
-    myApp.obj["circleTime"].elem.className = "working";
+    myApp.obj["circleTime"].elem.setAttribute("class", "working");
     myApp.state = 1;
     initNewTimer(getSessionLength());
   }
@@ -237,6 +237,7 @@ function playBeep() {
 
 function resetBeep() {
   const beep = document.getElementById("beep");
+  beep.pause();
   beep.currentTime = 0;
 }
 
