@@ -1,13 +1,12 @@
 <html lang="en">
 
 <head>
-    <title>Template</title>
+    <title>Pomodoro</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="app.css">
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** "> -->
 </head>
 
@@ -17,7 +16,7 @@
             <div class="flex-coloum center frame">
                 <div class="flex-container center">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                        <circle id="circleTime" class="working" r="30vmin" cx="50%" cy="50%">
+                        <circle id="circleTime" r="30vmin" cx="50%" cy="50%">
                         </circle>
                     </svg>
                     <div id="content" class="content center">
@@ -48,13 +47,13 @@
                             <div id="button-holder" class="item-btn-bar center">
                                 <div class="grid-btn-bar">
                                     <div class="main-btns center">
-                                        <button class="center no-btn-style">
-                                            <i id="reset" class="fas fa-redo-alt"></i>
+                                        <button id="reset" class="center no-btn-style">
+                                            <i class="fas fa-redo-alt"></i>
                                         </button>
                                     </div>
                                     <div class="main-btns white-bg center">
-                                        <button class="center no-btn-style">
-                                            <i id="start_stop" class="fas fa-play-circle"></i>
+                                        <button id="start_stop" class="center no-btn-style">
+                                            <i id="action_sym" class="fas fa-play-circle"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -66,12 +65,12 @@
         </div>
     </div>
     <audio id="beep">
-        <source src="http://soundbible.com/grab.php?id=1815&type=mp3" type="audio/mpeg" /> Your browser does not support the
+        <source src="https://soundbible.com/grab.php?id=1815&type=mp3" type="audio/mpeg" /> Your browser does not support the
         <code>audio</code> element.
     </audio>
     </div>
 </body>
-<script src="https://rawgit.com/freeCodeCamp/testable-projects-fcc/master/build/bundle.js"></script>
 <script type="text/javascript" src="app.bundle.js"></script>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 
 </html>
