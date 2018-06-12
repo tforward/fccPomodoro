@@ -22,7 +22,6 @@ myBase.initApplication = function init() {
   function eventController(args, e) {
     // Only Passes events of with tagNames defined in the array
     const id = getTargetId(e, args.tags);
-    console.log(id);
     if (id !== undefined) {
       myBase.main(id);
     }
