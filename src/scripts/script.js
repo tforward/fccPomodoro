@@ -15,13 +15,14 @@ myBase.initApplication = function init() {
   myApp.init();
   addElements();
   const eventSandbox = EventDelegator();
-  eventSandbox.initEvent("eventSandbox", "click", { tags: ["BUTTON", "I"] });
+  eventSandbox.initEvent("eventSandbox", "click", { tags: ["BUTTON"] });
   eventSandbox.addEvent(eventController);
   myApp.state = -1;
 
   function eventController(args, e) {
     // Only Passes events of with tagNames defined in the array
     const id = getTargetId(e, args.tags);
+    console.log(id);
     if (id !== undefined) {
       myBase.main(id);
     }
@@ -89,7 +90,7 @@ function reset() {
     myApp.obj["time-left"].elem.textContent = getformatSessionLength();
     const startBtn = myApp.obj["start_stop"];
     startBtn.toggle = -1;
-    startBtn.elem.className = "fas fa-play-circle";
+    myApp.obj["action_sym"].elem.className = "fas fa-play-circle";
     clockDial(0, 0);
   }
 }
@@ -100,7 +101,7 @@ function startStop(obj) {
     // Init Start
     myApp.timer = getTimer();
     self.toggle = 1;
-    self.elem.className = "fas fa-pause-circle";
+    myApp.obj["action_sym"].elem.className = "fas fa-pause-circle";
     const startTime = timer();
     myApp.timer.start(startTime);
     myApp.state = 1;
@@ -108,7 +109,7 @@ function startStop(obj) {
     // Pause
     self.toggle = 0;
     myApp.timer.pause();
-    self.elem.className = "fas fa-play-circle";
+    myApp.obj["action_sym"].elem.className = "fas fa-play-circle";
     if (myApp.state === 1) {
       posClock(getSessionLength());
     } else if (myApp.state === 0) {
@@ -119,7 +120,7 @@ function startStop(obj) {
     self.toggle = 1;
     // Unpause
     myApp.timer.pause();
-    self.elem.className = "fas fa-pause-circle";
+    myApp.obj["action_sym"].elem.className = "fas fa-pause-circle";
     clockDial(60, myApp.timer.final_time * 0.001);
   }
 }
@@ -175,7 +176,8 @@ function addElements() {
     "session-decrement",
     "session-increment",
     "start_stop",
-    "reset"
+    "reset",
+    "action_sym"
   ];
 
   const labels = initElemObjects(labelIds, ElementDelegator);
@@ -221,10 +223,8 @@ function switchSession() {
     timerLbl.elem.textContent = "Break";
     myApp.state = 0;
     initNewTimer(getBreakLength());
-    myApp.obj["circleTime"].elem.setAttribute("class", "break");
   } else if (myApp.state === 0) {
     timerLbl.elem.textContent = "Session";
-    myApp.obj["circleTime"].elem.setAttribute("class", "working");
     myApp.state = 1;
     initNewTimer(getSessionLength());
   }
@@ -247,9 +247,12 @@ function initNewTimer(timelength) {
   myApp.timer.start(time);
 
   playBeep();
+
   if (myApp.state === 1) {
+    clockDial(0, 0);
     clockDial(60, getSessionLength() * 60);
   } else if (myApp.state === 0) {
+    clockDial(0, 0);
     clockDial(0, getBreakLength() * 60);
   }
   myApp.obj["start_stop"].toggle = 1;
