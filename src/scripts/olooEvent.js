@@ -75,7 +75,7 @@ function lookupPathForId(e, tags) {
 }
 
 export function getTargetId(e, tags) {
-  let lookupId = "bbb";
+  let lookupId;
   // Prevents events triggering on the parent element
   if (e.target !== e.currentTarget) {
     // Returns the target ID of event for allowed tags Ex: DIV, BUTTON etc.
